@@ -1353,8 +1353,10 @@ class TrackPlot(Plot):
             interp_fhr += (subtract_by*6.0)
             cone_climo_fhrs = cone_climo_fhrs[1:]
         idxs = np.nonzero(np.in1d(np.array(fhr),np.array(cone_climo_hr)))
-        temp_arr = np.array(cone_size)[idxs]
-        interp_rad = np.apply_along_axis(lambda n: temporal_interpolation(n,fhr,interp_fhr),axis=0,arr=temp_arr)
+        temp_arr = np.array(fhr)[idxs]
+        temp_cone_size = cone_size[:len(temp_arr)]  # ensure length matches
+        interp_fhr = interp_fhr[np.where(interp_fhr <= temp_arr.max())]  # prevent out of range interp
+        interp_rad = np.apply_along_axis(lambda n: temporal_interpolation(n,temp_arr,interp_fhr),axis=0,arr=temp_cone_size)
 
         #Initialize 0.05 degree grid
         grid_extent = 9
