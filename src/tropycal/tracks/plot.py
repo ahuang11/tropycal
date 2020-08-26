@@ -790,8 +790,7 @@ class TrackPlot(Plot):
             if all_nan(first_fcst_wind) == True:
                 storm_name = storm_data['name']
             else:
-                storm_name = num_to_text(int(storm_data['id'][2:4])).upper()
-                if first_fcst_wind >= 34 and first_fcst_type in ['TD','SD','SS','TS','HU']: storm_name = storm_data['name'];
+                storm_name = storm_data['name']
                 if first_fcst_type not in ['TD','SD','SS','TS','HU']: storm_type = 'Potential Tropical Cyclone'
         else:
             storm_name = num_to_text(int(storm_data['id'][2:4])).upper()
